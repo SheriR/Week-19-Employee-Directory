@@ -1,13 +1,11 @@
 import React from "react";
 
-import EmployeeContainer from "./components/EmployeeContainer";
-// import SearchForm from "./components/SearchForm";
-// import Header from "./components/Header";
+import EmployeeDetails from "./components/EmployeeDetails";
 
 function App() {
   return (
     <div className="App">
-      <EmployeeContainer />;
+      <EmployeeDetails />;
     </div>
   );
 }
