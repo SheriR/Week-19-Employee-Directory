@@ -22,8 +22,6 @@ class EmployeeContainer extends Component {
       });
   };
 
-  // sort through employees based on search term
-  // check if there is a match and set that to empSort for rendering
   sortEmp = () => {
     let { employees, search } = this.state;
     let empSort = employees.filter((sorted) => {
@@ -47,13 +45,9 @@ class EmployeeContainer extends Component {
   render = () => {
     return (
       <div>
-        <div className="jumbotron">
+        <div className="jumbotron text-center">
           <h2 className="display-4">Employee Directory</h2>
-          <p>
-            {" "}
-            Search below by name or email to pull up who you are looking for. Or
-            you can click on the header to sort.
-          </p>
+          <p> Search by name below to find the employee you're looking for.</p>
           <Search name="search" startSort={this.startSort} label="Search" />
         </div>
 
@@ -89,6 +83,7 @@ class EmployeeContainer extends Component {
                       firstName={employee.name.first}
                       lastName={employee.name.last}
                       phone={employee.phone}
+                      cell={employee.cell}
                       email={employee.email}
                       icon={employee.picture.medium}
                     />
