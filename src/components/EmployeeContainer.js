@@ -1,100 +1,117 @@
 import React, { Component } from "react";
-import EmployeeDetails from "./EmployeeDetails.js";
-import Search from "./Search.js";
+//import EmployeeDetails from "./EmployeeDetails.js";
+//import Search from "./Search.js";
+import API from "../utils/API.js";
+
+// class EmployeeContainer extends Component {
+//   state = {
+//     employees: [],
+//     empSort: [],
+//     search: "",
+//     sorted: false,
+//   };
 
 class EmployeeContainer extends Component {
   state = {
-    employees: [],
-    empSort: [],
-    search: "",
-    sorted: false,
+    results: [],
   };
 
-  // check that the component rendered at least once, and pull in our data
-  // wait for the information to come back
-  componentDidMount = () => {
-    fetch(
-      `https://randomuser.me/api/?results=25&nat=us&inc=name,email,phone,cell,id,picture,`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({ employees: json.results });
-      });
-  };
+  componentDidMount() {
+    API.search()
+      .then((res) => this.setState({ results: res.data.results }))
+      .catch((err) => console.log(err));
+  }
 
-  sortEmp = () => {
-    let { employees, search } = this.state;
-    let empSort = employees.filter((sorted) => {
-      return (
-        sorted.name.first.toLowerCase().includes(search.toLowerCase()) ||
-        sorted.name.last.toLowerCase().includes(search.toLowerCase()) ||
-        sorted.email.toLowerCase().includes(search.toLowerCase())
-      );
-    });
-    this.setState({ empSort });
-  };
+  // // check that the component rendered at least once, and pull in our data
+  // // wait for the information to come back
+  // componentDidMount = () => {
+  //   fetch(
+  //     `https://randomuser.me/api/?results=25&nat=us&inc=name,email,phone,cell,id,picture,`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       this.setState({ employees: json.results });
+  //     });
+  // };
 
-  // grab search term, activate sorted
-  startSort = (event) => {
-    this.setState({ search: event.target.value }, () => {
-      this.sortEmp();
-      this.setState({ sorted: true });
-    });
-  };
+  // sortEmp = () => {
+  //   let { employees, search } = this.state;
+  //   let empSort = employees.filter((sorted) => {
+  //     return (
+  //       sorted.name.first.toLowerCase().includes(search.toLowerCase()) ||
+  //       sorted.name.last.toLowerCase().includes(search.toLowerCase()) ||
+  //       sorted.email.toLowerCase().includes(search.toLowerCase())
+  //     );
+  //   });
+  //   this.setState({ empSort });
+  // };
+
+  // // grab search term, activate sorted
+  // startSort = (event) => {
+  //   this.setState({ search: event.target.value }, () => {
+  //     this.sortEmp();
+  //     this.setState({ sorted: true });
+  //   });
+  // };
 
   render = () => {
+    console.log(this.state.results);
     return (
       <div>
-        <div className="jumbotron text-center">
-          <h2 className="display-4">Employee Directory</h2>
-          <p> Search by name below to find the employee you're looking for.</p>
-          <Search name="search" startSort={this.startSort} label="Search" />
-        </div>
-
-        <div className="container">
-          <table className="table">
-            <thead className="thead">
-              <tr>
-                <th>Image </th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Cell </th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* if it's not sorted, map accordingly */}
-              {!this.state.sorted
-                ? this.state.employees.map((employee) => (
-                    <EmployeeDetails
-                      key={employee.id.value}
-                      firstName={employee.name.first}
-                      lastName={employee.name.last}
-                      phone={employee.phone}
-                      cell={employee.cell}
-                      email={employee.email}
-                      icon={employee.picture.medium}
-                    />
-                  ))
-                : // otherwise map the sorted employees
-                  this.state.empSort.map((employee) => (
-                    <EmployeeDetails
-                      key={employee.id.value}
-                      firstName={employee.name.first}
-                      lastName={employee.name.last}
-                      phone={employee.phone}
-                      cell={employee.cell}
-                      email={employee.email}
-                      icon={employee.picture.medium}
-                    />
-                  ))}
-              ;
-            </tbody>
-          </table>
-        </div>
+        <h1>Hello world</h1>
       </div>
     );
   };
+
+  // {/* //       <div className="jumbotron text-center">
+  //   //         <h2 className="display-4">Employee Directory</h2>
+  //   //         <p> Search by name below to find the employee you're looking for.</p>
+  //   //         <Search name="search" startSort={this.startSort} label="Search" />
+  //   //       </div> */}
+
+  //   {/* //       <div className="container">
+  //         <table className="table">
+  //           <thead className="thead">
+  //             <tr>
+  //               <th>Image </th>
+  //               <th>Name</th>
+  //               <th>Email</th>
+  //               <th>Phone</th>
+  //               <th>Cell </th>
+  //             </tr>
+  //           </thead>
+  //           <tbody> */}
+  //             {/* if it's not sorted, map accordingly */}
+  //             {!this.state.sorted
+  //               ? this.state.employees.map((employee) => (
+  //                   <EmployeeDetails
+  //                     key={employee.id.value}
+  //                     firstName={employee.name.first}
+  //                     lastName={employee.name.last}
+  //                     phone={employee.phone}
+  //                     cell={employee.cell}
+  //                     email={employee.email}
+  //                     icon={employee.picture.medium}
+  //                   />
+  //                 ))
+  //               : // otherwise map the sorted employees
+  //                 this.state.empSort.map((employee) => (
+  //                   <EmployeeDetails
+  //                     key={employee.id.value}
+  //                     firstName={employee.name.first}
+  //                     lastName={employee.name.last}
+  //                     phone={employee.phone}
+  //                     cell={employee.cell}
+  //                     email={employee.email}
+  //                     icon={employee.picture.medium}
+  //                   />
+  //                 ))}
+  //             ;
+  //           </tbody>
+  //         </table>
+  //       </div>
+  //     </div>
+  //   );
 }
 
 export default EmployeeContainer;
