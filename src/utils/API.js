@@ -7,4 +7,3 @@ export default {
     return axios.get(BASEURL);
   },
 };
-//console.log(BASEURL);
